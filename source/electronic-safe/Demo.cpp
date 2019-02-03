@@ -31,7 +31,8 @@ int result = 0;
 
 // Vault Options Screen
 void vault_options_screen();
-
+void withdraw();
+void deposit();
 // ================== End of Electronic Safe ============
 
 /****************************************************************/
@@ -88,7 +89,7 @@ void demo()
 			// Press a button to open the safe
 			LcdClear();
 			LcdLine1();
-			LcdMsg("Press any button");
+			LcdMsg("Press button 1");
 			LcdLine2();
 			LcdMsg("to open");
 
@@ -96,8 +97,26 @@ void demo()
 			{
 			case 1:
 				vault_options_screen();
+				// Do not insert break; here. We want to execute the default so that
+				// we can pres any button to close the door/
 			default:
-				vault_options_screen();
+				// Press a button to close the safe
+				LcdClear();
+				LcdLine1();
+				LcdMsg("Press any button");
+				LcdLine2();
+				LcdMsg("to close");
+				switch (KeyBeep())
+				{
+				case 1:
+					// closing door image to be inserted here
+					break;
+				default:
+					// closing door image to be inserted here
+					break;
+				}
+
+				break;
 			}
 		}
 
@@ -111,7 +130,7 @@ void demo()
 			LcdMsg("3 tries");
 			welcome_flag = 1;
 		}
-		else if (welcome_counter >= 3) // after 3 tries
+		else if (welcome_counter > 3) // after 3 tries
 		{
 			LcdClear();
 			LcdLine1();
@@ -328,13 +347,87 @@ void vault_options_screen()
 	switch (KeyBeep())
 	{
 	case 1:
-		// withdraw();
+		withdraw();
+		break;
 	case 2:
-		// deposit();
+		deposit();
+		break;
 	case 3:
-		EcsDrawBMP(image1, pScrMgr); /* Demo Welcome */
-		Sleep(5000);
+		EcsDrawBMP(image1, pScrMgr); /* Default gold bar image */
+		Sleep(50);
+		break;
 	default:
 		// need to go back to main screen
+		break;
+	}
+}
+
+void withdraw()
+{
+	// insert default gold image here
+	LcdClear();
+	LcdLine1();
+	LcdMsg("Press 1");
+	LcdLine2();
+	LcdMsg(" to withdraw");
+	Sleep(10); // wait for the user to read
+
+	switch (KeyBeep())
+	{
+	case 1:
+		// insert image here 1 goldbar removed from the default image
+		EcsDrawBMP(image1, pScrMgr); /* 1 gold bar missing */
+		Sleep(50);
+		break;
+	case 2:
+		//
+		break;
+	case 3:
+		// insert image here 3 goldbars removed from the default image
+		break;
+	default:
+		LcdClear();
+		LcdLine1();
+		LcdMsg("Try again!");
+		LcdLine2();
+		LcdMsg("one more time");
+		Sleep(10); // wait for the user to read
+		break;
+	}
+}
+
+void deposit()
+{
+	EcsDrawBMP(image1, pScrMgr); /* insert default gold image here */
+	Sleep(10);
+
+	LcdClear();
+	LcdLine1();
+	LcdMsg("Press 1");
+	LcdLine2();
+	LcdMsg(" to deposit");
+	Sleep(10); // wait for the user to read
+
+	switch (KeyBeep())
+	{
+	case 1:
+		// insert image here 1 goldbar added to the default image
+		EcsDrawBMP(image1, pScrMgr); /* 1 gold bar added */
+		Sleep(5000);
+		break;
+	case 2:
+		//
+		break;
+	case 3:
+		// insert image here 3 goldbars added to the default image
+		break;
+	default:
+		LcdClear();
+		LcdLine1();
+		LcdMsg("Try again!");
+		LcdLine2();
+		LcdMsg("one more time");
+		Sleep(10); // wait for the user to read
+		break;
 	}
 }
