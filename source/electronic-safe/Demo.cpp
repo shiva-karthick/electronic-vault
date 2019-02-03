@@ -17,15 +17,22 @@
 unsigned int __stdcall sm_thread(void *pArguments);
 unsigned int __stdcall music_thread(void *pArguments);
 
-// Electronic Safe
-void welcome();		  // welcome function
-int welcome_flag = 0; // welcome function's global variable
+// ================== Electronic Safe ==================
+void welcome();							  // welcome function
+int welcome_flag = 1;					  // welcome function's global variable
+int welcome_counter = 0;				  // count until 3 tries
+int security_key_array[4] = {0, 0, 0, 0}; // array created to store the 4 digits
+int pointer_counter = 0;
 unsigned int digit1 = 0;
 unsigned int digit2 = 0;
 unsigned int digit3 = 0;
 unsigned int digit4 = 0;
-unsigned int concatenate(unsigned x, unsigned y); // concatenate 2 integer function
-unsigned int concatenate_result;
+int result = 0;
+
+// Vault Options Screen
+void vault_options_screen();
+
+// ================== End of Electronic Safe ============
 
 /****************************************************************/
 /* MAIN                                                         */
@@ -71,12 +78,54 @@ void demo()
 	{
 		Sleep(10);
 
-		welcome();
+		if (welcome_flag == 1)
+		{
+			welcome();
+		}
 
-		LcdLine1();
-		LcdMsg(" One more time  ");
-		LcdLine2();
-		LcdMsg("Press a Key  ...");
+		if (result == 4231 && welcome_flag == 0)
+		{
+			// Press a button to open the safe
+			LcdClear();
+			LcdLine1();
+			LcdMsg("Press any button");
+			LcdLine2();
+			LcdMsg("to open");
+
+			switch (KeyBeep())
+			{
+			case 1:
+				vault_options_screen();
+			default:
+				vault_options_screen();
+			}
+		}
+
+		if (result != 4231 && welcome_flag == 0 && welcome_counter < 4)
+		{
+			++welcome_counter;
+			LcdClear();
+			LcdLine1();
+			LcdMsg(" One more time  ");
+			LcdLine2();
+			LcdMsg("3 tries");
+			welcome_flag = 1;
+		}
+		else if (welcome_counter >= 3) // after 3 tries
+		{
+			LcdClear();
+			LcdLine1();
+			LcdMsg("System is");
+			LcdLine2();
+			LcdMsg("Disabled !");
+			Sleep(10000); // sleep for 10s
+			welcome_flag = 1;
+		}
+
+		// LcdLine1();
+		// LcdMsg(" One more time  ");
+		// LcdLine2();
+		// LcdMsg("Press a Key  ...");
 	}
 }
 
@@ -119,45 +168,173 @@ void welcome()
 	LcdClear();
 	LcdLine1();
 	LcdMsg("Enter key");
-	welcome_flag = 0;
-	while (welcome_flag == 0)
+	// welcome_flag = 1; //seems unnecessary
+	while (welcome_flag == 1)
 	{
 		switch (KeyBeep())
 		{
-		case 1: //start music
+		case 1: //Number 1 has been entered
 
 			LcdLine2();
-			LcdMsg("1");
+			LcdMsg("1 entered");
 			digit1 = 1;
+
+			if (*security_key_array == 0)
+			{
+
+				security_key_array[pointer_counter] = digit1;
+				++pointer_counter;
+			}
+			else if (*(security_key_array + pointer_counter) == 0)
+			{
+
+				security_key_array[pointer_counter] = digit1;
+				++pointer_counter;
+			}
+			else if (*(security_key_array + pointer_counter) == 0)
+			{
+
+				security_key_array[pointer_counter] = digit1;
+				++pointer_counter;
+			}
+			else if (*(security_key_array + pointer_counter) == 0)
+			{
+
+				security_key_array[pointer_counter] = digit1;
+			}
+
 			break;
-		case 2: //stop music
+		case 2: //Number 2 has been entered
 			LcdLine2();
-			LcdMsg("2");
+			LcdMsg("2 entered");
 			digit2 = 2;
+
+			if (*security_key_array == 0)
+			{
+
+				security_key_array[pointer_counter] = digit2;
+				++pointer_counter;
+			}
+			else if (*(security_key_array + pointer_counter) == 0)
+			{
+
+				security_key_array[pointer_counter] = digit2;
+				++pointer_counter;
+			}
+			else if (*(security_key_array + pointer_counter) == 0)
+			{
+
+				security_key_array[pointer_counter] = digit2;
+				++pointer_counter;
+			}
+			else if (*(security_key_array + pointer_counter) == 0)
+			{
+
+				security_key_array[pointer_counter] = digit2;
+			}
+
 			break;
-		case 3: // start motor
+		case 3: // Number 3 has been entered
 			LcdLine2();
-			LcdMsg("3");
+			LcdMsg("3 entered");
 			digit3 = 3;
+
+			if (*security_key_array == 0)
+			{
+
+				security_key_array[pointer_counter] = digit3;
+				++pointer_counter;
+			}
+			else if (*(security_key_array + pointer_counter) == 0)
+			{
+
+				security_key_array[pointer_counter] = digit3;
+				++pointer_counter;
+			}
+			else if (*(security_key_array + pointer_counter) == 0)
+			{
+
+				security_key_array[pointer_counter] = digit3;
+				++pointer_counter;
+			}
+			else if (*(security_key_array + pointer_counter) == 0)
+			{
+
+				security_key_array[pointer_counter] = digit3;
+			}
+
 			break;
-		case 4: //stop motor
+		case 4: // Number 4 has been entered
 			LcdLine2();
-			LcdMsg("4");
+			LcdMsg("4 entered");
 			digit4 = 4;
+
+			if (*security_key_array == 0)
+			{
+
+				security_key_array[pointer_counter] = digit4;
+				++pointer_counter;
+			}
+			else if (*(security_key_array + pointer_counter) == 0)
+			{
+
+				security_key_array[pointer_counter] = digit4;
+				++pointer_counter;
+			}
+			else if (*(security_key_array + pointer_counter) == 0)
+			{
+
+				security_key_array[pointer_counter] = digit4;
+				++pointer_counter;
+			}
+			else if (*(security_key_array + pointer_counter) == 0)
+			{
+
+				security_key_array[pointer_counter] = digit4;
+			}
+
 			break;
 		default:
-			welcome_flag = 1;
+			int result = 0; // declared already just in case :)
+
+			for (int i_result = 0; i_result < 4; i_result++)
+			{
+				result *= 10;
+				result += security_key_array[i_result];
+			}
+			LcdClear();
+			LcdLine1();
+			LcdMsg("Your key");
+			LcdLine2();
+			LcdMsg("is " + result);
+			Sleep(10); // wait for the user to read
+
+			welcome_flag = 0; // quit the welcome function
 			break;
 		}
 	}
 }
 
-unsigned int concatenate(unsigned x, unsigned y)
+void vault_options_screen()
 {
-	unsigned pow = 10;
-	while (y >= pow)
+	// insert image here
+	LcdClear();
+	LcdLine1();
+	LcdMsg("Enter option ");
+	LcdLine2();
+	LcdMsg("1 2 or 3");
+	Sleep(10); // wait for the user to read
+
+	switch (KeyBeep())
 	{
-		pow *= 10;
+	case 1:
+		// withdraw();
+	case 2:
+		// deposit();
+	case 3:
+		EcsDrawBMP(image1, pScrMgr); /* Demo Welcome */
+		Sleep(5000);
+	default:
+		// need to go back to main screen
 	}
-	return x * pow + y;
 }
