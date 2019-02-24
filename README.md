@@ -26,6 +26,17 @@
 
 ---
 
+## User Manual
+
+![Welcome image](https://github.com/shankar-shiv/electronic-safe/blob/master/images/unprocessed_PC_104/vault/welcome.jpg)
+
+- The user is greeted with a welcome screen as shown in Figure 1. This
+  user interface uses cognitive directness which means the the process is
+  more direct and reduces the mental work and makes the user use less
+  effort in accomplishing the task.
+
+---
+
 Done by :
 Shankar and Yan Sheng
 
