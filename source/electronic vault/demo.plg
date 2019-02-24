@@ -1,0 +1,44 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: demo - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\student\LOCALS~1\Temp\RSP4F.tmp" with contents
+[
+/nologo /MTd /W3 /GX /Z7 /Od /D "WIN32" /D "_DEBUG" /FR"Debug/" /Fo"Debug/" /Fd"Debug/" /FD /c 
+"D:\ECSLAB\demo\Demo.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\student\LOCALS~1\Temp\RSP4F.tmp" 
+Creating temporary file "C:\DOCUME~1\student\LOCALS~1\Temp\RSP50.tmp" with contents
+[
+/subsystem:console /pdb:none /map:"Debug/demo.map" /debug /machine:I386 /out:"Debug/demo.exe" /ETS:demo.lnk 
+.\Debug\Demo.obj
+.\Debug\EcsGUI.obj
+.\Debug\TIMERFUN.OBJ
+.\Debug\Keypad.obj
+.\Debug\LCD.OBJ
+.\Debug\main.obj
+.\Debug\MUSIC.OBJ
+.\Debug\SPEAKER.OBJ
+]
+Creating command line "link.exe @C:\DOCUME~1\student\LOCALS~1\Temp\RSP50.tmp"
+<h3>Output Window</h3>
+Compiling...
+Demo.cpp
+Linking...
+Warning LLOC.4330: Cannot skip library file -- file "hostfs.lib" not found
+LinkLoc: 13.0 -- Copyright (C) 1986-2005 Ardence, Inc.
+Microsoft (R) Debugging Information Compactor  Version 6.00.8168
+Copyright (C) Microsoft Corp 1987-1997. All rights reserved.
+
+
+
+
+<h3>Results</h3>
+demo.exe - 0 error(s), 1 warning(s)
+</pre>
+</body>
+</html>
